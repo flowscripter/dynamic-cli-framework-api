@@ -83,7 +83,7 @@ export {
   type RowOptions,
   type TableOptions,
 } from "./src/service/core/TableGeneratorService.ts";
-export type { default as Table } from "./src/service/core/Table.ts";
+export { default as Table } from "./src/service/core/Table.ts";
 
 export { DATA_DUMP_GENERATOR_SERVICE_ID } from "./src/service/core/DataDumpGeneratorService.ts";
 export type { default as DataDumpGeneratorService } from "./src/service/core/DataDumpGeneratorService.ts";
@@ -113,8 +113,8 @@ export type { ParseResult } from "./src/ParseResult.ts";
 // CLI API
 export type { InvalidArgument } from "./src/RunResult.ts";
 export type { default as Context } from "./src/Context.ts";
-export type { default as RunResult, InvalidArgumentReason, RunState } from "./src/RunResult.ts";
-export type { default as BaseCLIFeatureOptions } from "./src/BaseCLIFeatureOptions.ts";
+export type { default as RunResult } from "./src/RunResult.ts";
+export { InvalidArgumentReason, RunState } from "./src/RunResult.ts";
 export type { default as CLIConfig } from "./src/CLIConfig.ts";
 export type { default as CLI } from "./src/CLI.ts";
 

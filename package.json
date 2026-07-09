@@ -1,7 +1,7 @@
 {
   "name": "@flowscripter/dynamic-cli-framework-api",
   "version": "1.0.0",
-  "description": "Plugin-facing API types, interfaces and constants for the https://github.com/flowscripter/dynamic-cli-framework",
+  "description": "API for https://github.com/flowscripter/dynamic-cli-framework",
   "keywords": [
     "bun",
     "cli",
@@ -47,7 +47,7 @@
     "highlight.js": "^11.11.1",
     "oxfmt": "0.57.0",
     "oxlint": "1.72.0",
-    "prettier": "^3.9.4"
+    "prettier": "^3.9.5"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

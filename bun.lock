@@ -10,7 +10,7 @@
         "highlight.js": "^11.11.1",
         "oxfmt": "0.57.0",
         "oxlint": "1.72.0",
-        "prettier": "^3.9.4",
+        "prettier": "^3.9.5",
       },
       "peerDependencies": {
         "typescript": "^6.0.3",
