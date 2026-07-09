@@ -1,6 +1,6 @@
 {
   "name": "@flowscripter/dynamic-cli-framework-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "API for https://github.com/flowscripter/dynamic-cli-framework",
   "keywords": [
     "bun",
