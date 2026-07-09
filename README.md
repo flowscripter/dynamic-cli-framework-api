@@ -6,13 +6,7 @@
 [![docs](https://img.shields.io/badge/docs-API-blue)](https://flowscripter.github.io/dynamic-cli-framework-api/index.html)
 [![license: MIT](https://img.shields.io/github/license/flowscripter/dynamic-cli-framework-api)](https://github.com/flowscripter/dynamic-cli-framework-api/blob/main/LICENSE)
 
-> Plugin-facing API for the [dynamic-cli-framework](https://github.com/flowscripter/dynamic-cli-framework)
-
-:
-the types, interfaces and constants a plugin author needs to implement a
-`CommandFactory` or `ServiceProviderFactory`, without pulling in the
-framework's concrete runtime implementations (and their dependencies such as
-`figlet`, `emphasize`, `highlight.js` and `prettier`).
+> API for the [dynamic-cli-framework](https://github.com/flowscripter/dynamic-cli-framework)
 
 ## Usage
 
@@ -22,13 +16,9 @@ Plugin authors should depend on this package (not the full
 ```jsonc
 {
   "peerDependencies": {
-    "@flowscripter/dynamic-cli-framework-api": "*"
-  }
+    "@flowscripter/dynamic-cli-framework-api": "*",
+  },
 }
-```
-
-```ts
-import { createCLIPlugin, ArgumentValueTypeName, PRINTER_SERVICE_ID } from "@flowscripter/dynamic-cli-framework-api";
 ```
 
 Key exports:
@@ -42,14 +32,27 @@ Key exports:
 See [dynamic-cli-framework](https://github.com/flowscripter/dynamic-cli-framework)
 for the runnable framework and its concrete service implementations.
 
-## Development
+# Development
 
-```bash
-bun install
-bun run build
-bun test
-bunx oxlint index.ts src/
-```
+Install dependencies:
+
+`bun install`
+
+Build (produces `dist/` for Node.js and TypeScript consumers; Bun uses raw source directly):
+
+`bun run build`
+
+Format:
+
+`bunx oxfmt`
+
+Lint:
+
+`bunx oxlint index.ts src/ tests/`
+
+Generate HTML API Documentation:
+
+`bunx typedoc index.ts`
 
 ## License
 

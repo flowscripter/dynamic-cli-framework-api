@@ -14,10 +14,10 @@ export const DYNAMIC_CLI_FRAMEWORK_SERVICE_PROVIDER_FACTORY_EXTENSION_POINT =
  *
  * A plugin registers a {@link ServiceProviderFactory} against
  * {@link DYNAMIC_CLI_FRAMEWORK_SERVICE_PROVIDER_FACTORY_EXTENSION_POINT}. On startup,
- * {@link DynamicPluginRuntimeCLI} instantiates each factory and adds the returned
- * service providers to the CLI registry before the runner executes, so they participate
- * in the full initialization lifecycle (including {@link GlobalModifierCommand} scanning
- * and {@link ServiceProvider.initService}).
+ * `DynamicPluginRuntimeCLI` (see dynamic-cli-framework) instantiates each factory
+ * and adds the returned service providers to the CLI registry before the runner
+ * executes, so they participate in the full initialization lifecycle (including
+ * {@link GlobalModifierCommand} scanning and {@link ServiceProvider.initService}).
  */
 export default interface ServiceProviderFactory {
   /**

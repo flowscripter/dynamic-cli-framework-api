@@ -25,8 +25,9 @@ export interface ServiceProviderFactoryExtensionDescriptor extends ExtensionDesc
 }
 
 /**
- * A {@link Plugin} for {@link DynamicPluginRuntimeCLI} whose {@link extensionDescriptors} are
- * limited to the {@link CommandFactory} and {@link ServiceProviderFactory} extension points.
+ * A {@link Plugin} for `DynamicPluginRuntimeCLI` (see dynamic-cli-framework) whose
+ * {@link extensionDescriptors} are limited to the {@link CommandFactory} and
+ * {@link ServiceProviderFactory} extension points.
  */
 export default interface CLIPlugin extends Plugin {
   readonly extensionDescriptors: ReadonlyArray<

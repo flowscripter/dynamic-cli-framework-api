@@ -14,8 +14,9 @@ export const PLUGIN_SERVICE_ID = "PLUGIN_SERVICE";
  * Service providing plugin lifecycle management for a CLI with dynamic plugin support.
  *
  * Exposes search, install, uninstall, list, and update operations backed by a
- * {@link MarketplacePluginManager}. Provided by {@link DefaultPluginServiceProvider}
- * when plugin support is enabled via {@link DynamicPluginRuntimeCLI}.
+ * `MarketplacePluginManager` (see dynamic-plugin-framework). Provided by
+ * `DefaultPluginServiceProvider` when plugin support is enabled via
+ * `DynamicPluginRuntimeCLI` (see dynamic-cli-framework).
  *
  * After {@link install} or an upgrade, the CLI must be restarted for new or updated
  * plugin commands and service providers to become active.

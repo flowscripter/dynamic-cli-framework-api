@@ -1,6 +1,6 @@
 /**
  * Internal service providing secret storage via OS-native credential stores.
- * Not registered in Context -- used internally by {@link DefaultKeyValueService}.
+ * Not registered in Context -- used internally by `DefaultKeyValueService` (see dynamic-cli-framework).
  */
 export default interface SecretService {
   /**

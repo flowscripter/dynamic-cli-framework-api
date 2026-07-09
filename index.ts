@@ -8,10 +8,7 @@ export type {
   PopulatedArgumentValues,
   PopulatedArgumentValueType,
 } from "./src/argument/ArgumentValueTypes.ts";
-export {
-  ArgumentValueTypeName,
-  ComplexValueTypeName,
-} from "./src/argument/ArgumentValueTypes.ts";
+export { ArgumentValueTypeName, ComplexValueTypeName } from "./src/argument/ArgumentValueTypes.ts";
 export type { default as ComplexOption } from "./src/argument/ComplexOption.ts";
 export { MAXIMUM_COMPLEX_OPTION_NESTING_DEPTH } from "./src/argument/ComplexOption.ts";
 export type { default as SubCommandArgument } from "./src/argument/SubCommandArgument.ts";
@@ -127,6 +124,8 @@ export type {
   Plugin,
   ExtensionDescriptor,
   ExtensionFactory,
+  VersionedPluginDescriptor,
+  SearchQuery,
 } from "@flowscripter/dynamic-plugin-framework";
 export type {
   default as CLIPlugin,

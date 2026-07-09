@@ -14,8 +14,8 @@ export const DYNAMIC_CLI_FRAMEWORK_COMMAND_FACTORY_EXTENSION_POINT =
  *
  * A plugin registers an {@link CommandFactory} against
  * {@link DYNAMIC_CLI_FRAMEWORK_COMMAND_FACTORY_EXTENSION_POINT}. On startup,
- * {@link DynamicPluginRuntimeCLI} instantiates each factory and adds the returned
- * commands to the CLI registry before the runner executes.
+ * `DynamicPluginRuntimeCLI` (see dynamic-cli-framework) instantiates each factory
+ * and adds the returned commands to the CLI registry before the runner executes.
  */
 export default interface CommandFactory {
   /**
