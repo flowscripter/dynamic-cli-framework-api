@@ -140,3 +140,12 @@ export { default as createCLIPlugin } from "./src/plugin/createCLIPlugin.ts";
 export type { CLIPluginOptions } from "./src/plugin/createCLIPlugin.ts";
 export { PLUGIN_SERVICE_ID } from "./src/service/core/PluginService.ts";
 export type { default as PluginService } from "./src/service/core/PluginService.ts";
+
+export {
+  UPGRADE_SERVICE_ID,
+  InstallMethod,
+  SupportedArch,
+  SupportedOs,
+} from "./src/service/core/UpgradeService.ts";
+export type { default as UpgradeService } from "./src/service/core/UpgradeService.ts";
+export type { UpgradeCheckResult, UpgradeResult } from "./src/service/core/UpgradeService.ts";
