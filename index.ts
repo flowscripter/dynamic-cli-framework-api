@@ -57,6 +57,10 @@ export { Icon, Level, ProgressStyle, SpinnerStyle } from "./src/service/core/Pri
 export { SHUTDOWN_SERVICE_ID } from "./src/service/core/ShutdownService.ts";
 export type { default as ShutdownService } from "./src/service/core/ShutdownService.ts";
 
+export { SPAWN_SERVICE_ID } from "./src/service/core/SpawnService.ts";
+export type { default as SpawnService } from "./src/service/core/SpawnService.ts";
+export type { SpawnOptions, SpawnResult } from "./src/service/core/SpawnService.ts";
+
 export { SYNTAX_HIGHLIGHTER_SERVICE_ID } from "./src/service/core/SyntaxHighlighterService.ts";
 export type { default as SyntaxHighlighterService } from "./src/service/core/SyntaxHighlighterService.ts";
 export type { ColorScheme } from "./src/service/core/SyntaxHighlighterService.ts";
