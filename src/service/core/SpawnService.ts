@@ -25,12 +25,13 @@ export interface SpawnOptions {
   /**
    * `"inherit"` (default) lets the spawned process write directly to `stdout`/`stderr`.
    * `"wrapped"` captures both streams line-by-line and invokes {@link onOutput} for each line
-   * instead, without writing anything itself.
+   * instead, without writing anything itself. `"ignore"` discards both streams entirely - nothing
+   * is written and {@link onOutput} is never invoked.
    */
-  stdio?: "inherit" | "wrapped";
+  mode?: "inherit" | "wrapped" | "ignore";
 
   /**
-   * Invoked with each line captured from the spawned process. Only used when {@link stdio} is
+   * Invoked with each line captured from the spawned process. Only used when {@link mode} is
    * `"wrapped"`.
    */
   onOutput?: (line: string, stream: "stdout" | "stderr") => void;

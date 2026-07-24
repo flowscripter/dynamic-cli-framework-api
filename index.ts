@@ -50,6 +50,10 @@ export { SECRET_SENTINEL_PREFIX } from "./src/service/core/KeyValueService.ts";
 export type { default as KeyValueService } from "./src/service/core/KeyValueService.ts";
 export type { default as SecretService } from "./src/service/core/SecretService.ts";
 
+export { FETCH_SERVICE_ID } from "./src/service/core/FetchService.ts";
+export type { default as FetchService } from "./src/service/core/FetchService.ts";
+export type { FetchOptions } from "./src/service/core/FetchService.ts";
+
 export { PRINTER_SERVICE_ID } from "./src/service/core/PrinterService.ts";
 export type { default as PrinterService } from "./src/service/core/PrinterService.ts";
 export { Icon, Level, ProgressStyle, SpinnerStyle } from "./src/service/core/PrinterService.ts";
