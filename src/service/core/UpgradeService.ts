@@ -106,4 +106,18 @@ export default interface UpgradeService {
     arch?: SupportedArch,
     installMethod?: InstallMethod,
   ): Promise<UpgradeResult>;
+
+  /**
+   * Returns the result of the version check that was started eagerly once this service's
+   * dependencies were set (or starts one now, with default/no-override detection, if none has
+   * started yet). Every call is backed by the same cached promise.
+   *
+   * @param waitForResult if `true`, waits for the check to fully resolve. If `false` (default),
+   * gives up and resolves to `undefined` after an internal bounded delay, so callers on a
+   * startup/opportunistic path are never blocked by a slow network/spawn call.
+   *
+   * @return the {@link UpgradeCheckResult}, or `undefined` if unsupported/unconfigured or the
+   * bounded wait elapsed. Never rejects.
+   */
+  getUpgradeCheckResult(waitForResult?: boolean): Promise<UpgradeCheckResult | undefined>;
 }

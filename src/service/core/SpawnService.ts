@@ -5,11 +5,12 @@ export const SPAWN_SERVICE_ID = "@flowscripter/dynamic-cli-framework/spawn-servi
  *
  * `ok` is `true` only when the process launched and exited with code `0`. A launch failure (e.g.
  * the binary was not found) sets `error` with no `exitCode`; a non-zero exit sets `exitCode` with
- * no `error`.
+ * no `error`; a process that did not exit within {@link SpawnOptions.timeoutMs} sets `timedOut`.
  */
 export type SpawnResult =
   | { ok: true; exitCode: number }
-  | { ok: false; exitCode?: number; error?: Error };
+  | { ok: false; exitCode?: number; error?: Error }
+  | { ok: false; timedOut: true };
 
 /**
  * Options for {@link SpawnService.spawn}.
@@ -40,6 +41,13 @@ export interface SpawnOptions {
    * `true`.
    */
   longRunning?: boolean;
+
+  /**
+   * If specified, the spawned process is aborted (`SIGTERM`, followed by `SIGKILL` if it has not
+   * exited after a grace period) if it has not exited within this many milliseconds. Defaults to
+   * unbounded.
+   */
+  timeoutMs?: number;
 }
 
 /**
