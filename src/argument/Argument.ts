@@ -1,9 +1,5 @@
-import type {
-  ArgumentSingleValueType,
-  ArgumentValues,
-  ArgumentValueType,
-  ArgumentValueTypeName,
-} from "./ArgumentValueTypes.ts";
+import type { SingleValueType, Values, ValueType } from "../value/Value.ts";
+import type { ValueTypeName } from "../value/ValueTypes.ts";
 
 /**
  * Interface to be implemented by all {@link Command} arguments.
@@ -12,25 +8,25 @@ export default interface Argument {
   /**
    * Type of the argument value.
    */
-  readonly type: ArgumentValueTypeName;
+  readonly type: ValueTypeName;
 
   /**
-   * Optional list of values that the value must match. This is not supported for {@link ArgumentValueTypeName.BOOLEAN}.
+   * Optional list of values that the value must match. This is not supported for {@link ValueTypeName.BOOLEAN}.
    */
-  readonly allowableValues?: ReadonlyArray<ArgumentSingleValueType>;
+  readonly allowableValues?: ReadonlyArray<SingleValueType>;
 
   /**
-   * Optional (default is `false`) for {@link ArgumentValueTypeName.STRING} when comparing a value against {@link allowableValues}.
+   * Optional (default is `false`) for {@link ValueTypeName.STRING} when comparing a value against {@link allowableValues}.
    */
   readonly isCaseInsensitive?: boolean;
 
   /**
-   * Optional for {@link ArgumentValueTypeName.INTEGER} or {@link ArgumentValueTypeName.NUMBER} when validating a value.
+   * Optional for {@link ValueTypeName.INTEGER} or {@link ValueTypeName.NUMBER} when validating a value.
    */
   readonly minValueInclusive?: number;
 
   /**
-   * Optional for {@link ArgumentValueTypeName.INTEGER} or {@link ArgumentValueTypeName.NUMBER} when validating a value.
+   * Optional for {@link ValueTypeName.INTEGER} or {@link ValueTypeName.NUMBER} when validating a value.
    */
   readonly maxValueInclusive?: number;
 
@@ -69,7 +65,5 @@ export default interface Argument {
    * }
    * ```
    */
-  readonly validate?: (
-    value: ArgumentValueType | ArgumentValues | Array<ArgumentValues>,
-  ) => string | undefined;
+  readonly validate?: (value: ValueType | Values | Array<Values>) => string | undefined;
 }

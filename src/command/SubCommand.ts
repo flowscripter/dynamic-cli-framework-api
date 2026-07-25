@@ -3,7 +3,7 @@ import type Option from "../argument/Option.ts";
 import type Positional from "../argument/Positional.ts";
 import type UsageExample from "./UsageExample.ts";
 import type ComplexOption from "../argument/ComplexOption.ts";
-import type { ArgumentValues } from "../argument/ArgumentValueTypes.ts";
+import type { Values } from "../value/Value.ts";
 import type Context from "../Context.ts";
 
 /**
@@ -37,5 +37,5 @@ export default interface SubCommand extends Command {
    * @param argumentValues the argument values for the command. This may be empty if
    * the command's {@link Option} and {@link Positional} instances are all optional and no argument values were provided.
    */
-  execute(context: Context, argumentValues: ArgumentValues): Promise<void>;
+  execute(context: Context, argumentValues: Values): Promise<void>;
 }
