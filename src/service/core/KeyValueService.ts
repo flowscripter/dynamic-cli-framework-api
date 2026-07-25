@@ -1,3 +1,5 @@
+import type { ArgumentValueType, ArgumentValues } from "../../argument/ArgumentValueTypes.ts";
+
 export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-value-service";
 
 /**
@@ -8,16 +10,32 @@ export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-val
 export const SECRET_SENTINEL_PREFIX = "__SECRET__:";
 
 /**
- * Arbitrary JSON-serializable data which can be stored in and retrieved from a
- * {@link KeyValueService}.
+ * The shape of a value stored/retrieved via {@link KeyValueService.get}/{@link KeyValueService.set}.
+ *
+ * Reuses the same recursive value shape as {@link ArgumentValues} (primitives, arrays of primitives,
+ * nested keyed objects, or arrays of nested objects) - notably `null` is not supported, and neither is
+ * an array of arrays (see {@link ArgumentValues}).
  */
-export type KeyValueData =
-  | string
-  | number
-  | boolean
-  | null
-  | KeyValueData[]
-  | { [key: string]: KeyValueData };
+export type KeyValueData = ArgumentValueType | ArgumentValues | Array<ArgumentValues>;
+
+/**
+ * Wraps a value to mark it for storage as an OS-native secret via {@link SecretService}, when passed to
+ * {@link KeyValueService.set}. Can wrap the entire value passed to `set`, or be nested at any depth
+ * within a larger object/array passed to `set`.
+ */
+export class Secret<T extends KeyValueData = KeyValueData> {
+  constructor(public readonly value: T) {}
+}
+
+/**
+ * The shape of a value passed to {@link KeyValueService.set} - like {@link KeyValueData} but allowing
+ * {@link Secret}-wrapped values at any depth.
+ */
+export type SettableKeyValueData =
+  | KeyValueData
+  | Secret
+  | { [key: string]: SettableKeyValueData }
+  | Array<SettableKeyValueData>;
 
 /**
  * Service providing keystore functionality for the CLI. The keystore data is scoped to the
@@ -26,34 +44,33 @@ export type KeyValueData =
  * Values are arbitrary JSON-serializable data (see {@link KeyValueData}) - not limited to
  * strings - and may be deep objects or arrays.
  *
- * Values can optionally be stored as OS-native secrets using the `isSecret` parameter on
- * {@link set}. When `isSecret` is true, the entire value is serialized as JSON and stored as a
- * single OS-native secret via {@link SecretService}, with only a sentinel reference kept in the
- * key-value Map. The sentinel prefix `__SECRET__:` is reserved.
- *
- * Independently of `isSecret`, {@link get} recursively resolves any string leaf - at any depth
- * within the returned value - which starts with the sentinel prefix, retrieving it via
- * {@link SecretService}. This covers both values written via `set(..., isSecret=true)` and
- * secret references a user hand-embeds directly (nested arbitrarily deep) in the CLI's JSON
- * config file.
+ * Any node within a value passed to {@link set} can be wrapped in {@link Secret} to have that
+ * node - and only that node - stored as an OS-native secret via {@link SecretService}, with a
+ * sentinel reference (prefixed with `__SECRET__:`) kept in its place in the stored structure.
+ * Everything else in the value is stored as plain (unencrypted) config data. This is symmetric
+ * with {@link get}, which resolves sentinel references found at any depth.
  */
 export default interface KeyValueService {
   /**
    * Get the value for a specified key in the keystore.
    *
-   * Any string leaf within the returned value - at any depth - which is a secret sentinel is
-   * resolved to its actual value from the OS secret store.
+   * Recursively resolves any string leaf - at any depth within the stored value - which is a
+   * secret sentinel, retrieving its actual value via {@link SecretService}. This covers both
+   * values written via {@link set} using a nested {@link Secret}, and secret references a user
+   * hand-embeds directly (nested arbitrarily deep) in the CLI's JSON config file.
    */
   get<T extends KeyValueData = KeyValueData>(key: string): Promise<T>;
 
   /**
    * Set a value for a specified key in the keystore.
    *
-   * @param isSecret if true, the entire value is serialized as JSON and stored as a single
-   *   entry in the OS-native secret store, with a sentinel reference kept in the key-value Map.
-   *   Requires that the service was constructed with secret support enabled.
+   * Any node within `value` wrapped in {@link Secret} - at any depth - is serialized as JSON and
+   * stored as an OS-native secret via {@link SecretService}, with a sentinel reference kept in
+   * its place in the stored structure. All other data is stored as plain (unencrypted) config
+   * data. Storing a secret requires that the service was constructed with secret support
+   * enabled.
    */
-  set(key: string, value: KeyValueData, isSecret?: boolean): Promise<void>;
+  set(key: string, value: SettableKeyValueData): Promise<void>;
 
   /**
    * Check if a value for a specified key exists in the keystore.
@@ -62,8 +79,9 @@ export default interface KeyValueService {
 
   /**
    * Delete the value for a specified key in the keystore.
-   * If the stored value is a top-level secret sentinel, the secret is also deleted from the OS
-   * secret store. This does not recurse into nested hand-embedded secret references.
+   *
+   * Recursively walks the stored (unresolved) structure for `key` and deletes every OS-native
+   * secret referenced - at any depth - via {@link SecretService}, before removing the key itself.
    */
   delete(key: string): Promise<void>;
 }

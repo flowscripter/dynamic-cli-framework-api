@@ -47,9 +47,11 @@ export type {
 
 export { KEY_VALUE_SERVICE_ID } from "./src/service/core/KeyValueService.ts";
 export { SECRET_SENTINEL_PREFIX } from "./src/service/core/KeyValueService.ts";
+export { Secret } from "./src/service/core/KeyValueService.ts";
 export type {
   default as KeyValueService,
   KeyValueData,
+  SettableKeyValueData,
 } from "./src/service/core/KeyValueService.ts";
 export type { default as SecretService } from "./src/service/core/SecretService.ts";
 
