@@ -4,7 +4,7 @@
 import type Command from "./command/Command.ts";
 import type Argument from "./argument/Argument.ts";
 import type ComplexOption from "./argument/ComplexOption.ts";
-import type { PopulatedValues, PopulatedValueType } from "./value/Value.ts";
+import type { PopulatedValues, PopulatedValueType } from "./Value.ts";
 
 export enum RunState {
   /**

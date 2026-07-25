@@ -1,4 +1,4 @@
-import type { ValueType } from "../value/Value.ts";
+import type { ValueType } from "../Value.ts";
 import type SubCommandArgument from "./SubCommandArgument.ts";
 
 /**

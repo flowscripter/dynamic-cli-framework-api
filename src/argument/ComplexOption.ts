@@ -1,6 +1,5 @@
 import type Option from "./Option.ts";
-import type { Values } from "../value/Value.ts";
-import type { ComplexValueTypeName } from "../value/ValueTypes.ts";
+import type { Values, ComplexValueTypeName } from "../Value.ts";
 
 export const MAXIMUM_COMPLEX_OPTION_NESTING_DEPTH = 10;
 

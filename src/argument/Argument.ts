@@ -1,5 +1,4 @@
-import type { SingleValueType, Values, ValueType } from "../value/Value.ts";
-import type { ValueTypeName } from "../value/ValueTypes.ts";
+import type { SingleValueType, Values, ValueType, ValueTypeName } from "../Value.ts";
 
 /**
  * Interface to be implemented by all {@link Command} arguments.
