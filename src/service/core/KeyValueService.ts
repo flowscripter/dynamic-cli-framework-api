@@ -1,4 +1,4 @@
-import type { ArgumentValueType, ArgumentValues } from "../../argument/ArgumentValueTypes.ts";
+import type { ValueType, Values } from "../../value/Value.ts";
 
 export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-value-service";
 
@@ -12,11 +12,11 @@ export const SECRET_SENTINEL_PREFIX = "__SECRET__:";
 /**
  * The shape of a value stored/retrieved via {@link KeyValueService.get}/{@link KeyValueService.set}.
  *
- * Reuses the same recursive value shape as {@link ArgumentValues} (primitives, arrays of primitives,
+ * Reuses the same recursive value shape as {@link Values} (primitives, arrays of primitives,
  * nested keyed objects, or arrays of nested objects) - notably `null` is not supported, and neither is
- * an array of arrays (see {@link ArgumentValues}).
+ * an array of arrays (see {@link Values}).
  */
-export type KeyValueData = ArgumentValueType | ArgumentValues | Array<ArgumentValues>;
+export type KeyValueData = ValueType | Values | Array<Values>;
 
 /**
  * Wraps a value to mark it for storage as an OS-native secret via {@link SecretService}, when passed to
