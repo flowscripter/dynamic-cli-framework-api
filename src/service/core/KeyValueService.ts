@@ -1,4 +1,4 @@
-import type { ValueType, Values } from "../../value/Value.ts";
+import type { ValueType, Values } from "../../Value.ts";
 
 export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-value-service";
 
