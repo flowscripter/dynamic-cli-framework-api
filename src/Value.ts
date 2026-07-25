@@ -1,4 +1,9 @@
 /**
+ * Value shapes and type names shared by argument parsing and other framework features (e.g.
+ * `KeyValueService`) that need to represent an arbitrary JSON-ish value.
+ */
+
+/**
  * Enum of possible value types.
  */
 export enum ValueTypeName {
