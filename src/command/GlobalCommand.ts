@@ -1,7 +1,7 @@
 import type Command from "./Command.ts";
 import type GlobalCommandArgument from "../argument/GlobalCommandArgument.ts";
 import type Context from "../Context.ts";
-import type { ArgumentSingleValueType } from "../argument/ArgumentValueTypes.ts";
+import type { SingleValueType } from "../Value.ts";
 
 /**
  * Interface for a global command.
@@ -26,5 +26,5 @@ export default interface GlobalCommand extends Command {
    * @param argumentValue optional argument value for the command. This will be populated unless
    * the command's {@link GlobalCommandArgument} is optional and the argument value was not provided.
    */
-  execute(context: Context, argumentValue?: ArgumentSingleValueType): Promise<void>;
+  execute(context: Context, argumentValue?: SingleValueType): Promise<void>;
 }

@@ -4,10 +4,7 @@
 import type Command from "./command/Command.ts";
 import type Argument from "./argument/Argument.ts";
 import type ComplexOption from "./argument/ComplexOption.ts";
-import type {
-  PopulatedArgumentValues,
-  PopulatedArgumentValueType,
-} from "./argument/ArgumentValueTypes.ts";
+import type { PopulatedValues, PopulatedValueType } from "./Value.ts";
 
 export enum RunState {
   /**
@@ -121,9 +118,9 @@ export interface InvalidArgument {
    * NOTE: This value is unlikely to be valid as it is the cause of the invalid argument error.
    */
   readonly value?:
-    | PopulatedArgumentValues
-    | PopulatedArgumentValueType
-    | Array<PopulatedArgumentValues | PopulatedArgumentValueType>;
+    | PopulatedValues
+    | PopulatedValueType
+    | Array<PopulatedValues | PopulatedValueType>;
 
   /**
    * An optional message providing detail about the validation failure.

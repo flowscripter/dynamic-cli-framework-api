@@ -1,9 +1,6 @@
 import type Command from "./command/Command.ts";
 import type GroupCommand from "./command/GroupCommand.ts";
-import type {
-  PopulatedArgumentSingleValueType,
-  PopulatedArgumentValues,
-} from "./argument/ArgumentValueTypes.ts";
+import type { PopulatedSingleValueType, PopulatedValues } from "./Value.ts";
 import type { InvalidArgument } from "./RunResult.ts";
 
 /**
@@ -23,10 +20,10 @@ export interface ParseResult {
   /**
    * The argument values populated from the command line args. If the parse result is valid
    * (i.e. {@link invalidArguments} is empty), this can be used to execute the specified {@link command}.
-   * {@link PopulatedArgumentSingleValueType} is for {@link GlobalCommand} values, {@link PopulatedArgumentValues} is for
+   * {@link PopulatedSingleValueType} is for {@link GlobalCommand} values, {@link PopulatedValues} is for
    * {@link SubCommand} values.
    */
-  readonly populatedArgumentValues: PopulatedArgumentValues | PopulatedArgumentSingleValueType;
+  readonly populatedArgumentValues: PopulatedValues | PopulatedSingleValueType;
 
   /**
    * Any arguments which were invalid.

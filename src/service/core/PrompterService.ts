@@ -1,4 +1,4 @@
-import type { ArgumentSingleValueType } from "../../argument/ArgumentValueTypes.ts";
+import type { SingleValueType } from "../../Value.ts";
 
 export const PROMPTER_SERVICE_ID = "@flowscripter/dynamic-cli-framework/prompter-service";
 
@@ -13,10 +13,10 @@ export enum PromptType {
 
 export interface PromptOption {
   readonly displayValue: string;
-  readonly returnedValue: ArgumentSingleValueType;
+  readonly returnedValue: SingleValueType;
   readonly min?: number;
   readonly max?: number;
-  readonly validate?: (value: ArgumentSingleValueType) => string | undefined;
+  readonly validate?: (value: SingleValueType) => string | undefined;
 }
 
 export interface Prompt {
@@ -30,7 +30,7 @@ export interface Prompt {
 
 export interface PromptResult {
   readonly name: string;
-  readonly value: ArgumentSingleValueType | ReadonlyArray<ArgumentSingleValueType>;
+  readonly value: SingleValueType | ReadonlyArray<SingleValueType>;
 }
 
 export default interface PrompterService {

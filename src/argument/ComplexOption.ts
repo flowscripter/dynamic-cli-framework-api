@@ -1,5 +1,5 @@
 import type Option from "./Option.ts";
-import type { ArgumentValues, ComplexValueTypeName } from "./ArgumentValueTypes.ts";
+import type { Values, ComplexValueTypeName } from "../Value.ts";
 
 export const MAXIMUM_COMPLEX_OPTION_NESTING_DEPTH = 10;
 
@@ -23,5 +23,5 @@ export default interface ComplexOption extends Omit<
   /**
    * Default value for the argument if not specified.
    */
-  readonly defaultValue?: ArgumentValues | Array<ArgumentValues>;
+  readonly defaultValue?: Values | Array<Values>;
 }

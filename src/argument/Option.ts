@@ -1,4 +1,4 @@
-import type { ArgumentValueType } from "./ArgumentValueTypes.ts";
+import type { ValueType } from "../Value.ts";
 import type SubCommandArgument from "./SubCommandArgument.ts";
 
 /**
@@ -15,7 +15,7 @@ export default interface Option extends SubCommandArgument {
   /**
    * Default value for the argument if not specified.
    */
-  readonly defaultValue?: ArgumentValueType;
+  readonly defaultValue?: ValueType;
 
   /**
    * If this is `true` the option does not need to be specified nor have a default value.
