@@ -1,6 +1,6 @@
 import type Command from "./command/Command.ts";
 import type GroupCommand from "./command/GroupCommand.ts";
-import type { PopulatedSingleValueType, PopulatedValues } from "./value/Value.ts";
+import type { PopulatedSingleValueType, PopulatedValues } from "./Value.ts";
 import type { InvalidArgument } from "./RunResult.ts";
 
 /**

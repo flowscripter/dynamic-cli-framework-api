@@ -3,7 +3,7 @@ import type Option from "../argument/Option.ts";
 import type Positional from "../argument/Positional.ts";
 import type UsageExample from "./UsageExample.ts";
 import type ComplexOption from "../argument/ComplexOption.ts";
-import type { Values } from "../value/Value.ts";
+import type { Values } from "../Value.ts";
 import type Context from "../Context.ts";
 
 /**

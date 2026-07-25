@@ -7,8 +7,8 @@ export type {
   PopulatedSingleValueType,
   PopulatedValues,
   PopulatedValueType,
-} from "./src/value/Value.ts";
-export { ValueTypeName, ComplexValueTypeName } from "./src/value/ValueTypes.ts";
+} from "./src/Value.ts";
+export { ValueTypeName, ComplexValueTypeName } from "./src/Value.ts";
 export type { default as ComplexOption } from "./src/argument/ComplexOption.ts";
 export { MAXIMUM_COMPLEX_OPTION_NESTING_DEPTH } from "./src/argument/ComplexOption.ts";
 export type { default as SubCommandArgument } from "./src/argument/SubCommandArgument.ts";

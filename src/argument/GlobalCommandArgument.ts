@@ -1,5 +1,5 @@
 import type Argument from "./Argument.ts";
-import type { SingleValueType } from "../value/Value.ts";
+import type { SingleValueType } from "../Value.ts";
 
 /**
  * Interface to be implemented by a single {@link Argument} defined by a {@link GlobalCommand}.

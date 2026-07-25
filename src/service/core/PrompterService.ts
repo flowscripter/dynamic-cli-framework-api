@@ -1,4 +1,4 @@
-import type { SingleValueType } from "../../value/Value.ts";
+import type { SingleValueType } from "../../Value.ts";
 
 export const PROMPTER_SERVICE_ID = "@flowscripter/dynamic-cli-framework/prompter-service";
 
