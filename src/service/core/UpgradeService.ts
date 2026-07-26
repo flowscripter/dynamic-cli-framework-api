@@ -28,11 +28,12 @@ export enum InstallMethod {
 }
 
 /**
- * Outcome of an {@link UpgradeService.checkForUpgrade} call that ran to completion - i.e.
- * excluding the `"pending"` status which only {@link UpgradeService.getUpgradeCheckResult} with
- * `waitForResult` false (or omitted) can produce.
+ * Outcome of an {@link UpgradeService.checkForUpgrade} or {@link UpgradeService.getUpgradeCheckResult}
+ * call. The `"pending"` status can only be produced by {@link UpgradeService.getUpgradeCheckResult}'s
+ * non-blocking bounded wait - `checkForUpgrade()` and a `getUpgradeCheckResult(true)` call always
+ * run to completion and so never resolve to it.
  */
-export type CompletedUpgradeCheckResult =
+export type UpgradeCheckResult =
   | {
       readonly status: "checked";
       readonly currentVersion: string;
@@ -50,13 +51,7 @@ export type CompletedUpgradeCheckResult =
       /** A supported/configured combination was found, but determining the latest version failed. */
       readonly status: "failed";
       readonly error: Error;
-    };
-
-/**
- * Outcome of an {@link UpgradeService.getUpgradeCheckResult} call.
- */
-export type UpgradeCheckResult =
-  | CompletedUpgradeCheckResult
+    }
   | {
       /** The non-blocking bounded wait elapsed before the check completed. */
       readonly status: "pending";
@@ -106,13 +101,14 @@ export default interface UpgradeService {
    * @param arch optional {@link SupportedArch} override, defaults to the detected value.
    * @param installMethod optional {@link InstallMethod} override, defaults to the detected value.
    *
-   * @return the {@link CompletedUpgradeCheckResult}. Never rejects.
+   * @return the {@link UpgradeCheckResult}. Runs to completion, so never resolves to the
+   * `"pending"` status. Never rejects.
    */
   checkForUpgrade(
     os?: SupportedOs,
     arch?: SupportedArch,
     installMethod?: InstallMethod,
-  ): Promise<CompletedUpgradeCheckResult>;
+  ): Promise<UpgradeCheckResult>;
 
   /**
    * Upgrade the CLI to the latest available version.
@@ -134,14 +130,12 @@ export default interface UpgradeService {
    * dependencies were set (or starts one now, with default/no-override detection, if none has
    * started yet). Every call is backed by the same cached promise.
    *
-   * @param waitForResult if `true`, waits for the check to fully resolve, returning a
-   * {@link CompletedUpgradeCheckResult}. If `false` (default), gives up and resolves to a
-   * `"pending"` {@link UpgradeCheckResult} after an internal bounded delay, so callers on a
-   * startup/opportunistic path are never blocked by a slow network/spawn call.
+   * @param waitForResult if `true`, waits for the check to fully resolve, so the result never has
+   * status `"pending"`. If `false` (default), gives up and resolves to a `"pending"` result after
+   * an internal bounded delay, so callers on a startup/opportunistic path are never blocked by a
+   * slow network/spawn call.
    *
-   * @return the {@link CompletedUpgradeCheckResult} if `waitForResult` is `true`, otherwise the
-   * {@link UpgradeCheckResult} (which may be `"pending"`). Never rejects.
+   * @return the {@link UpgradeCheckResult}. Never rejects.
    */
-  getUpgradeCheckResult(waitForResult: true): Promise<CompletedUpgradeCheckResult>;
   getUpgradeCheckResult(waitForResult?: boolean): Promise<UpgradeCheckResult>;
 }

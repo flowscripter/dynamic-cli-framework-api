@@ -157,8 +157,4 @@ export {
   SupportedOs,
 } from "./src/service/core/UpgradeService.ts";
 export type { default as UpgradeService } from "./src/service/core/UpgradeService.ts";
-export type {
-  CompletedUpgradeCheckResult,
-  UpgradeCheckResult,
-  UpgradeResult,
-} from "./src/service/core/UpgradeService.ts";
+export type { UpgradeCheckResult, UpgradeResult } from "./src/service/core/UpgradeService.ts";
