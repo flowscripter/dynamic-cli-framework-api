@@ -1,4 +1,4 @@
-import type { ValueType, Values } from "../../Value.ts";
+import type { ValueNode } from "../../Value.ts";
 
 export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-value-service";
 
@@ -10,38 +10,33 @@ export const KEY_VALUE_SERVICE_ID = "@flowscripter/dynamic-cli-framework/key-val
 export const SECRET_SENTINEL_PREFIX = "__SECRET__:";
 
 /**
- * The shape of a value stored/retrieved via {@link KeyValueService.get}/{@link KeyValueService.set}.
- *
- * Reuses the same recursive value shape as {@link Values} (primitives, arrays of primitives,
- * nested keyed objects, or arrays of nested objects) - notably `null` is not supported, and neither is
- * an array of arrays (see {@link Values}).
- */
-export type KeyValueData = ValueType | Values | Array<Values>;
-
-/**
  * Wraps a value to mark it for storage as an OS-native secret via {@link SecretService}, when passed to
  * {@link KeyValueService.set}. Can wrap the entire value passed to `set`, or be nested at any depth
  * within a larger object/array passed to `set`.
  */
-export class Secret<T extends KeyValueData = KeyValueData> {
+export class Secret<T extends ValueNode = ValueNode> {
   constructor(public readonly value: T) {}
 }
 
 /**
- * The shape of a value passed to {@link KeyValueService.set} - like {@link KeyValueData} but allowing
- * {@link Secret}-wrapped values at any depth.
+ * The shape of a value passed to {@link KeyValueService.set}.
+ *
+ * Like {@link ValueNode} (primitives, arrays of primitives, nested keyed objects, or arrays of
+ * nested objects) but additionally allows a {@link Secret}-wrapped value at any depth - as a top
+ * level value, a property of a nested object, or an entry of a nested array. A {@link Secret}
+ * itself wraps a plain {@link ValueNode}, so secrets do not nest within secrets.
  */
-export type SettableKeyValueData =
-  | KeyValueData
+export type SettableValueNode =
+  | ValueNode
   | Secret
-  | { [key: string]: SettableKeyValueData }
-  | Array<SettableKeyValueData>;
+  | { [name: string]: SettableValueNode }
+  | Array<SettableValueNode>;
 
 /**
  * Service providing keystore functionality for the CLI. The keystore data is scoped to the
  * service or {@link Command} instances accessing this service via {@link Context.getServiceById}.
  *
- * Values are arbitrary JSON-serializable data (see {@link KeyValueData}) - not limited to
+ * Values are arbitrary JSON-serializable data (see {@link ValueNode}) - not limited to
  * strings - and may be deep objects or arrays.
  *
  * Any node within a value passed to {@link set} can be wrapped in {@link Secret} to have that
@@ -59,7 +54,7 @@ export default interface KeyValueService {
    * values written via {@link set} using a nested {@link Secret}, and secret references a user
    * hand-embeds directly (nested arbitrarily deep) in the CLI's JSON config file.
    */
-  get<T extends KeyValueData = KeyValueData>(key: string): Promise<T>;
+  get<T extends ValueNode = ValueNode>(key: string): Promise<T>;
 
   /**
    * Set a value for a specified key in the keystore.
@@ -70,7 +65,7 @@ export default interface KeyValueService {
    * data. Storing a secret requires that the service was constructed with secret support
    * enabled.
    */
-  set(key: string, value: SettableKeyValueData): Promise<void>;
+  set(key: string, value: SettableValueNode): Promise<void>;
 
   /**
    * Check if a value for a specified key exists in the keystore.

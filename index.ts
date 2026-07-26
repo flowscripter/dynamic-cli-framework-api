@@ -4,6 +4,7 @@ export type {
   SingleValueType,
   Values,
   ValueType,
+  ValueNode,
   PopulatedSingleValueType,
   PopulatedValues,
   PopulatedValueType,
@@ -50,8 +51,7 @@ export { SECRET_SENTINEL_PREFIX } from "./src/service/core/KeyValueService.ts";
 export { Secret } from "./src/service/core/KeyValueService.ts";
 export type {
   default as KeyValueService,
-  KeyValueData,
-  SettableKeyValueData,
+  SettableValueNode,
 } from "./src/service/core/KeyValueService.ts";
 export type { default as SecretService } from "./src/service/core/SecretService.ts";
 

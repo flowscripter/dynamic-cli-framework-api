@@ -35,6 +35,12 @@ export type SingleValueType = number | string | boolean;
 export type ValueType = SingleValueType | Array<SingleValueType>;
 
 /**
+ * Any node that can appear within a {@link Values} tree: a primitive/array-of-primitives
+ * ({@link ValueType}), a nested keyed object ({@link Values}), or an array of such objects.
+ */
+export type ValueNode = ValueType | Values | Array<Values>;
+
+/**
  * A container object for populated values.
  *
  * The following are all valid examples:
@@ -55,7 +61,7 @@ export type ValueType = SingleValueType | Array<SingleValueType>;
  * * `{ foo: [ [ 1, 2 ], [3, 4 ] ] }`
  */
 export type Values = {
-  [name: string]: ValueType | Values | Array<Values>;
+  [name: string]: ValueNode;
 };
 
 /**
