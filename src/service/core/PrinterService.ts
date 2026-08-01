@@ -300,6 +300,16 @@ export default interface PrinterService {
   clearMarked(minimumDisplayTimeMs?: number): Promise<void>;
 
   /**
+   * Stop tracking rows for the current mark region (see {@link startMark}) without erasing them,
+   * resetting the mark bookkeeping so a subsequent {@link startMark} does not throw. Use this
+   * instead of {@link clearMarked} when the marked output should be left on screen - e.g. when a
+   * spawned command failed and its output should remain visible.
+   *
+   * Throws if called without a preceding {@link startMark}.
+   */
+  discardMark(): void;
+
+  /**
    * The number of columns available on the stdout terminal.
    * Defaults to 80 if the terminal width cannot be determined.
    */
