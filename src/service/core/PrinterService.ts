@@ -107,6 +107,11 @@ export default interface PrinterService {
   italic(message: string): string;
 
   /**
+   * Return the provided message so that the text is displayed dimmed.
+   */
+  dim(message: string): string;
+
+  /**
    * Return the provided message so that the foreground is yellow.
    * Has no effect if {@link colorEnabled} is `false`.
    */
