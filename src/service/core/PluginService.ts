@@ -13,7 +13,7 @@ export const PLUGIN_SERVICE_ID = "PLUGIN_SERVICE";
 /**
  * Service providing plugin lifecycle management for a CLI with dynamic plugin support.
  *
- * Exposes search, install, uninstall, list, and update operations backed by a
+ * Exposes search, availability-check, install, uninstall, list, and update operations backed by a
  * `MarketplacePluginManager` (see dynamic-plugin-framework). Provided by
  * `DefaultPluginServiceProvider` when plugin support is enabled via
  * `DynamicPluginRuntimeCLI` (see dynamic-cli-framework).
@@ -29,6 +29,17 @@ export default interface PluginService {
    * @returns an async iterable of matching {@link VersionedPluginDescriptor} entries.
    */
   search(query: Readonly<SearchQuery>): AsyncIterable<Readonly<VersionedPluginDescriptor>>;
+
+  /**
+   * Check whether a plugin, optionally at a specific version, is available from the remote
+   * marketplace, without installing it.
+   *
+   * @param pluginId the package identifier of the plugin to check (e.g. `@scope/my-plugin`).
+   * @param version an optional specific version to check for; if omitted, checks whether the
+   * plugin is available at any version.
+   * @returns `true` if the plugin (and version, if specified) is available, `false` otherwise.
+   */
+  checkAvailable(pluginId: string, version?: string): Promise<boolean>;
 
   /**
    * Install a plugin from the remote marketplace into the local plugin store.
