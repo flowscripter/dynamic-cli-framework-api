@@ -8,7 +8,7 @@ import type {
  *
  * Pass to {@link Context.getServiceById} to retrieve the active {@link PluginService} instance.
  */
-export const PLUGIN_SERVICE_ID = "PLUGIN_SERVICE";
+export const PLUGIN_SERVICE_ID = "@flowscripter/dynamic-cli-framework/plugin-service";
 
 /**
  * Service providing plugin lifecycle management for a CLI with dynamic plugin support.
