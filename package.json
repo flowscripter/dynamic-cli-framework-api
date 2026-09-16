@@ -39,7 +39,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
     "@flowscripter/dynamic-plugin-framework": "2.2.8",

@@ -28,6 +28,45 @@ export enum ProgressStyle {
 }
 
 /**
+ * Options for {@link PrinterService.showProgressBar}.
+ */
+export interface ProgressBarOptions {
+  /**
+   * An optional message for the progress bar.
+   */
+  message?: string;
+
+  /**
+   * The total value which equates to 100% complete, defaults to `100`.
+   */
+  total?: number;
+
+  /**
+   * The current value which is a portion of the total value, defaults to `0`.
+   */
+  current?: number;
+
+  /**
+   * Optional progress bar rendering style, defaults to {@link ProgressStyle.STROKE}.
+   */
+  style?: ProgressStyle;
+
+  /**
+   * Formats a current or total value for display, e.g. scaling a raw byte count to a
+   * human-readable unit. Defaults to `String(value)`.
+   */
+  format?: (value: number) => string;
+
+  /**
+   * Formats the computed rate (value/s, in the same scale passed to {@link current}/{@link total})
+   * for display. Called independently of {@link format}, so a rate can be shown in a different
+   * unit than the total - e.g. a byte total shown in GB whose rate has slowed enough to be
+   * clearer in KB/s. Defaults to `` `${format(rate)}/s` ``.
+   */
+  formatRate?: (rate: number) => string;
+}
+
+/**
  * Enum of message icons.
  */
 export enum Icon {
@@ -413,21 +452,11 @@ export default interface PrinterService {
    *
    * NOTE: If the spinner is currently displayed it will be hidden.
    *
-   * @param units the units to display for progress indication e.g. 'MB' or 'Kb'.
-   * @param message an optional message for the progress bar.
-   * @param total the total value which equates to 100% complete, defaults to `100`.
-   * @param current the current value which is a portion of the total value, defaults to `0`.
-   * @param style optional progress bar rendering style, defaults to {@link ProgressStyle.STROKE}.
+   * @param options options for the progress bar - see {@link ProgressBarOptions}.
    *
    * @return a handle to use when invoking {@link updateProgressBar}.
    */
-  showProgressBar(
-    units: string,
-    message?: string,
-    total?: number,
-    current?: number,
-    style?: ProgressStyle,
-  ): Promise<number>;
+  showProgressBar(options?: ProgressBarOptions): Promise<number>;
 
   /**
    * Hides a specified progress bar.
