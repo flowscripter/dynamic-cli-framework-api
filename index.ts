@@ -62,6 +62,7 @@ export type { FetchOptions } from "./src/service/core/FetchService.ts";
 export { PRINTER_SERVICE_ID } from "./src/service/core/PrinterService.ts";
 export type { default as PrinterService } from "./src/service/core/PrinterService.ts";
 export { Icon, Level, ProgressStyle, SpinnerStyle } from "./src/service/core/PrinterService.ts";
+export type { ProgressBarOptions } from "./src/service/core/PrinterService.ts";
 
 export { SHUTDOWN_SERVICE_ID } from "./src/service/core/ShutdownService.ts";
 export type { default as ShutdownService } from "./src/service/core/ShutdownService.ts";
