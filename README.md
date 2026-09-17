@@ -27,7 +27,8 @@ Key exports:
 - `CommandFactory`, `ServiceProviderFactory` - extension interfaces implemented by a plugin.
 - `Command`, `SubCommand`, `GlobalCommand`, `GroupCommand` - command types.
 - `Context`, `CLIConfig` - runtime context passed to commands.
-- Core service interfaces and their `*_SERVICE_ID` identifiers (`PrinterService`, `TableGeneratorService`, `SyntaxHighlighterService`, etc.) used to look up services via `Context`.
+- Core service interfaces and their `*_SERVICE_ID` identifiers (`PrinterService`, `TableGeneratorService`, `SyntaxHighlighterService`, `ConfigurationService`, etc.) used to look up services via `Context`.
+- `StartupService`/`StartupTask`, `ShutdownService`/`ShutdownTask` - priority-ordered registration of work to run once during CLI startup/shutdown, via `registerTask({id, priority, run})` on either.
 
 See [dynamic-cli-framework](https://github.com/flowscripter/dynamic-cli-framework)
 for the runnable framework and its concrete service implementations.
