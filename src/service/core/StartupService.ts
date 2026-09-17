@@ -15,13 +15,8 @@ export interface StartupTaskContext {
 }
 
 /**
- * A `"blocking"` task is awaited before the next lower-priority task runs - this is how a
- * {@link ServiceProvider}'s own `initService()` behaves today.
- *
- * A `"background"` task is started but not awaited before startup proceeds, for work that
- * would otherwise stall CLI startup (e.g. a network call). Its `run()` receives a scope-bound
- * view of any scoped services (such as a `KeyValueService`) that remains valid for the task's
- * entire lifetime, not just until the next task starts.
+ * A `"blocking"` task is awaited before the next lower-priority task runs.
+ * A `"background"` task is started but not awaited before startup proceeds.
  */
 export type StartupTaskMode = "blocking" | "background";
 
@@ -35,8 +30,7 @@ export interface StartupTask {
   readonly id: string;
 
   /**
-   * Used to determine the order in which tasks run. Higher values run earlier - the same
-   * semantics as {@link ServiceProvider.servicePriority}.
+   * Used to determine the order in which tasks run. Higher values run earlier.
    */
   readonly priority: number;
 
