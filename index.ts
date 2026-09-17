@@ -46,6 +46,9 @@ export type {
   RainbowColorEffect,
 } from "./src/service/core/AsciiBannerGeneratorService.ts";
 
+export { CONFIGURATION_SERVICE_ID } from "./src/service/core/ConfigurationService.ts";
+export type { default as ConfigurationService } from "./src/service/core/ConfigurationService.ts";
+
 export { KEY_VALUE_SERVICE_ID } from "./src/service/core/KeyValueService.ts";
 export { SECRET_SENTINEL_PREFIX } from "./src/service/core/KeyValueService.ts";
 export { Secret } from "./src/service/core/KeyValueService.ts";
