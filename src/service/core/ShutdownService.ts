@@ -1,13 +1,36 @@
 export const SHUTDOWN_SERVICE_ID = "@flowscripter/dynamic-cli-framework/shutdown-service";
 
 /**
- * Service allowing registration of callbacks for CLI shutdown.
+ * A unit of work to run once during CLI shutdown, in {@link ShutdownTask.priority} order.
+ */
+export interface ShutdownTask {
+  /**
+   * Identifies this task, e.g. for debug logging when a shutdown task is slow or hangs.
+   */
+  readonly id: string;
+
+  /**
+   * Used to determine the order in which tasks run during shutdown. Higher values run
+   * earlier - the same semantics as {@link ServiceProvider.servicePriority} and
+   * {@link StartupTask.priority}. Defaults to `0` if not specified; tasks with the same
+   * priority run in registration order.
+   */
+  readonly priority?: number;
+
+  /**
+   * Perform this task's shutdown work.
+   */
+  run(): Promise<void>;
+}
+
+/**
+ * Service allowing registration of prioritised tasks to run during CLI shutdown.
  */
 export default interface ShutdownService {
   /**
-   * Register a callback to be invoked during graceful shutdown.
+   * Register a {@link ShutdownTask} to run during graceful shutdown.
    */
-  addShutdownListener(callback: () => Promise<void>): void;
+  registerTask(task: ShutdownTask): void;
 
   /**
    * Enter long-running mode where the first Ctrl-C sets a cooperative flag

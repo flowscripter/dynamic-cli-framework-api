@@ -65,7 +65,15 @@ export { Icon, Level, ProgressStyle, SpinnerStyle } from "./src/service/core/Pri
 export type { ProgressBarOptions } from "./src/service/core/PrinterService.ts";
 
 export { SHUTDOWN_SERVICE_ID } from "./src/service/core/ShutdownService.ts";
-export type { default as ShutdownService } from "./src/service/core/ShutdownService.ts";
+export type { default as ShutdownService, ShutdownTask } from "./src/service/core/ShutdownService.ts";
+
+export { STARTUP_SERVICE_ID } from "./src/service/core/StartupService.ts";
+export type {
+  default as StartupService,
+  StartupTask,
+  StartupTaskContext,
+  StartupTaskMode,
+} from "./src/service/core/StartupService.ts";
 
 export { SPAWN_SERVICE_ID } from "./src/service/core/SpawnService.ts";
 export type { default as SpawnService } from "./src/service/core/SpawnService.ts";

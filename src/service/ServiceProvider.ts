@@ -46,6 +46,12 @@ export interface ServiceProvider {
    * NOTE: Other services within the provided context will only have been initialised if they have a higher
    * {@link servicePriority} value than the current service.
    *
+   * This is deliberately a separate call from {@link getServiceInfo}, not just an implementation detail:
+   * every provider's commands (from {@link getServiceInfo}) must be known before any provider's
+   * {@link GlobalModifierCommand}s are scanned/executed, since CLI argument parsing needs the complete
+   * command surface up front. That requires two passes - a full `getServiceInfo` collection pass across
+   * all providers, then a priority-ordered `initService` pass - not one, so this split is permanent.
+   *
    * @param context the {@link Context} in which the CLI is running.
    */
   initService(context: Context): Promise<void>;
