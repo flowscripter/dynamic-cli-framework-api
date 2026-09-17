@@ -11,8 +11,7 @@ export interface ShutdownTask {
 
   /**
    * Used to determine the order in which tasks run during shutdown. Higher values run
-   * earlier - the same semantics as {@link ServiceProvider.servicePriority} and
-   * {@link StartupTask.priority}. Defaults to `0` if not specified; tasks with the same
+   * earlier. Defaults to `0` if not specified; tasks with the same
    * priority run in registration order.
    */
   readonly priority?: number;
