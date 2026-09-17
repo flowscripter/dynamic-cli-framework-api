@@ -28,10 +28,7 @@ export enum InstallMethod {
 }
 
 /**
- * Outcome of an {@link UpgradeService.checkForUpgrade} or {@link UpgradeService.getUpgradeCheckResult}
- * call. The `"pending"` status can only be produced by {@link UpgradeService.getUpgradeCheckResult}'s
- * non-blocking bounded wait - `checkForUpgrade()` and a `getUpgradeCheckResult(true)` call always
- * run to completion and so never resolve to it.
+ * Outcome of an {@link UpgradeService.checkForUpgrade} or {@link UpgradeService.getUpgradeCheckResult} call.
  */
 export type UpgradeCheckResult =
   | {
@@ -51,10 +48,6 @@ export type UpgradeCheckResult =
       /** A supported/configured combination was found, but determining the latest version failed. */
       readonly status: "failed";
       readonly error: Error;
-    }
-  | {
-      /** The non-blocking bounded wait elapsed before the check completed. */
-      readonly status: "pending";
     };
 
 /**
@@ -101,8 +94,7 @@ export default interface UpgradeService {
    * @param arch optional {@link SupportedArch} override, defaults to the detected value.
    * @param installMethod optional {@link InstallMethod} override, defaults to the detected value.
    *
-   * @return the {@link UpgradeCheckResult}. Runs to completion, so never resolves to the
-   * `"pending"` status. Never rejects.
+   * @return the {@link UpgradeCheckResult}. Runs to completion. Never rejects.
    */
   checkForUpgrade(
     os?: SupportedOs,
@@ -128,14 +120,9 @@ export default interface UpgradeService {
   /**
    * Returns the result of the version check that was started eagerly once this service's
    * dependencies were set (or starts one now, with default/no-override detection, if none has
-   * started yet). Every call is backed by the same cached promise.
-   *
-   * @param waitForResult if `true`, waits for the check to fully resolve, so the result never has
-   * status `"pending"`. If `false` (default), gives up and resolves to a `"pending"` result after
-   * an internal bounded delay, so callers on a startup/opportunistic path are never blocked by a
-   * slow network/spawn call.
+   * started yet).
    *
    * @return the {@link UpgradeCheckResult}. Never rejects.
    */
-  getUpgradeCheckResult(waitForResult?: boolean): Promise<UpgradeCheckResult>;
+  getUpgradeCheckResult(): Promise<UpgradeCheckResult>;
 }
