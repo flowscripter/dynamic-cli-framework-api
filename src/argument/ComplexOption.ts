@@ -17,6 +17,11 @@ export default interface ComplexOption extends Omit<
 
   /**
    * List of child {@link Option} properties.
+   *
+   * Each property is validated in declaration order, including its own
+   * {@link Argument.validate} function if one is defined. Property validators run before the
+   * validator of this complex option. A property's `defaultValue` is used when it is absent,
+   * and an absent property with `isOptional` is skipped.
    */
   readonly properties: ReadonlyArray<Option | ComplexOption>;
 

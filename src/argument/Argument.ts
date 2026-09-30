@@ -54,6 +54,22 @@ export default interface Argument {
    * validation error. The error string is associated with
    * {@link InvalidArgumentReason.CUSTOM_VALIDATION}.
    *
+   * Validators declared on properties nested inside {@link ComplexOption.properties} are also
+   * invoked, at any depth:
+   *
+   * * Validation is bottom-up and depth-first, in `properties` declaration order. A property's
+   *   validator is invoked after the validators of its own child properties, and only if they all
+   *   passed. A parent therefore always receives a fully converted and child-validated value.
+   * * Validation stops at the first failure, so later validators are not invoked.
+   * * For an argument with `isArray`, the validator is invoked once with the whole converted
+   *   array. For an array of {@link ComplexOption} values, the child property validators are
+   *   invoked for each element.
+   * * An absent nested property with a `defaultValue` is validated using the default value. An
+   *   absent nested property with `isOptional` and no default is skipped and its validator is not
+   *   invoked.
+   * * A nested failure is reported with the full property path as the invalid argument name,
+   *   e.g. `opt.sub[2].field`.
+   *
    * Example: ensure array values are unique:
    * ```typescript
    * validate: (value) => {
