@@ -79,6 +79,7 @@ export type {
   StartupTask,
   StartupTaskContext,
   StartupTaskMode,
+  StartupTaskOutcome,
 } from "./src/service/core/StartupService.ts";
 
 export { SPAWN_SERVICE_ID } from "./src/service/core/SpawnService.ts";
