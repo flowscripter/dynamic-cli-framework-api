@@ -33,9 +33,14 @@ export enum RunState {
   RUNTIME_ERROR = 4,
 
   /**
-   * Execution was interrupted by a signal (e.g. Ctrl-C or SIGTERM).
+   * Execution was interrupted by SIGINT (e.g. Ctrl-C).
    */
   INTERRUPTED = 130,
+
+  /**
+   * Execution was terminated by a signal other than SIGINT (e.g. SIGTERM).
+   */
+  TERMINATED = 143,
 }
 
 /**
