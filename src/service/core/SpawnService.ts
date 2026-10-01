@@ -49,6 +49,12 @@ export interface SpawnOptions {
    * unbounded.
    */
   timeoutMs?: number;
+
+  /**
+   * Environment variables for the spawned process, merged over the current process's
+   * `process.env`.
+   */
+  env?: Record<string, string | undefined>;
 }
 
 /**

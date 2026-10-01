@@ -1,5 +1,6 @@
 import type GlobalModifierCommand from "../../command/GlobalModifierCommand.ts";
 import type CLIConfig from "../../CLIConfig.ts";
+import type { RunState } from "../../RunResult.ts";
 
 export const STARTUP_SERVICE_ID = "@flowscripter/dynamic-cli-framework/startup-service";
 
@@ -8,6 +9,11 @@ export const STARTUP_SERVICE_ID = "@flowscripter/dynamic-cli-framework/startup-s
  */
 export interface StartupTaskContext {
   readonly cliConfig: CLIConfig;
+
+  /**
+   * The CLI arguments passed to the CLI's `run()`.
+   */
+  readonly args: ReadonlyArray<string>;
 
   getServiceById(id: string): unknown;
 
@@ -19,6 +25,14 @@ export interface StartupTaskContext {
  * A `"background"` task is started but not awaited before startup proceeds.
  */
 export type StartupTaskMode = "blocking" | "background";
+
+/**
+ * Optional result of {@link StartupTask.run}. Only a `"blocking"` task may return it.
+ *
+ * An `exitRequest` ends the run early: the remaining startup tasks and the command are skipped,
+ * and `exitRequest.runState` is used as the run's result.
+ */
+export type StartupTaskOutcome = { exitRequest: { runState: RunState } };
 
 /**
  * A unit of work to run once during CLI startup, in {@link StartupTask.priority} order.
@@ -50,8 +64,10 @@ export interface StartupTask {
    * Perform this task's startup work.
    *
    * @param context a {@link StartupTaskContext} view of the CLI's {@link Context}.
+   *
+   * @return optionally a {@link StartupTaskOutcome}. Only a `"blocking"` task may return one.
    */
-  run(context: StartupTaskContext): Promise<void>;
+  run(context: StartupTaskContext): Promise<void | StartupTaskOutcome>;
 }
 
 /**

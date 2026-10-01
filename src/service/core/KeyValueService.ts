@@ -79,4 +79,10 @@ export default interface KeyValueService {
    * secret referenced - at any depth - via {@link SecretService}, before removing the key itself.
    */
   delete(key: string): Promise<void>;
+
+  /**
+   * Write any pending changes to storage now and mark them clean, so they are not written again
+   * unless further changes are made.
+   */
+  flush(): Promise<void>;
 }

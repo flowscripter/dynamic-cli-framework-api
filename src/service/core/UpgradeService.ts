@@ -125,4 +125,27 @@ export default interface UpgradeService {
    * @return the {@link UpgradeCheckResult}. Never rejects.
    */
   getUpgradeCheckResult(): Promise<UpgradeCheckResult>;
+
+  /**
+   * Returns the most recently cached {@link UpgradeCheckResult} without performing a version
+   * check.
+   *
+   * @return the cached {@link UpgradeCheckResult}, or `undefined` if no result is cached. Never
+   * rejects.
+   */
+  getCachedUpgradeCheckResult(): Promise<UpgradeCheckResult | undefined>;
+
+  /**
+   * Performs a version check now and stores its result in the cache read by
+   * {@link getCachedUpgradeCheckResult}.
+   *
+   * @return the fresh {@link UpgradeCheckResult}. Never rejects.
+   */
+  refreshUpgradeCheckCache(): Promise<UpgradeCheckResult>;
+
+  /**
+   * The version of the CLI which restarted this process after an automatic upgrade, or
+   * `undefined` if this process was not started by such a restart.
+   */
+  readonly restartedFromVersion: string | undefined;
 }
