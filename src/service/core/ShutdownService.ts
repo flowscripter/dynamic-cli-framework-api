@@ -43,6 +43,14 @@ export default interface ShutdownService {
   leaveLongRunningMode(): void;
 
   /**
+   * Handle a user interrupt (e.g. Ctrl-C read as a key press while the terminal is in raw mode),
+   * with the same behavior as receiving `SIGINT`: outside long-running mode, run the shutdown tasks
+   * and exit; in long-running mode, set {@link isShutdownRequested}, with a third interrupt forcing
+   * exit.
+   */
+  interrupt(): void;
+
+  /**
    * True once shutdown has been requested (e.g. first Ctrl-C in long-running mode).
    */
   readonly isShutdownRequested: boolean;

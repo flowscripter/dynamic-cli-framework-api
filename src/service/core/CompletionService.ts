@@ -16,6 +16,20 @@ export interface CompletionItem {
  * Interface for a service providing shell auto-completion support.
  */
 export default interface CompletionService {
+  /**
+   * Parse the arguments passed by a shell's completion bootstrap script into the command line
+   * being completed and the cursor position within it.
+   *
+   * @param shellType the shell which invoked completion.
+   * @param args the arguments passed by the shell's bootstrap script.
+   *
+   * @return the command line being completed and the cursor position within it.
+   */
+  parseCompletionContext(
+    shellType: ShellType,
+    args: ReadonlyArray<string>,
+  ): { line: string; cursorPosition: number };
+
   generateCompletions(
     shellType: ShellType,
     line: string,
