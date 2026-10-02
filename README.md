@@ -32,6 +32,12 @@ Key exports:
 See [dynamic-cli-framework](https://github.com/flowscripter/dynamic-cli-framework)
 for the runnable framework and its concrete service implementations.
 
+## API
+
+Link to auto-generated API docs:
+
+[API Documentation](https://flowscripter.github.io/dynamic-cli-framework-api/index.html)
+
 # Development
 
 Install dependencies:
