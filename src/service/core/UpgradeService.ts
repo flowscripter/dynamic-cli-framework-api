@@ -41,7 +41,7 @@ export type UpgradeCheckResult =
       readonly installMethod: InstallMethod;
     }
   | {
-      /** The resolved (or overridden) os/arch/installMethod combination is not supported or not configured. */
+      /** The detected os/arch and resolved (or overridden) installMethod combination is not supported or not configured. */
       readonly status: "unsupported";
     }
   | {
@@ -90,36 +90,28 @@ export default interface UpgradeService {
   /**
    * Check whether a newer version of the CLI is available.
    *
-   * @param os optional {@link SupportedOs} override, defaults to the detected value.
-   * @param arch optional {@link SupportedArch} override, defaults to the detected value.
+   * The operating system and CPU architecture are always the detected values.
+   *
    * @param installMethod optional {@link InstallMethod} override, defaults to the detected value.
    *
    * @return the {@link UpgradeCheckResult}. Runs to completion. Never rejects.
    */
-  checkForUpgrade(
-    os?: SupportedOs,
-    arch?: SupportedArch,
-    installMethod?: InstallMethod,
-  ): Promise<UpgradeCheckResult>;
+  checkForUpgrade(installMethod?: InstallMethod): Promise<UpgradeCheckResult>;
 
   /**
    * Upgrade the CLI to the latest available version.
    *
-   * @param os optional {@link SupportedOs} override, defaults to the detected value.
-   * @param arch optional {@link SupportedArch} override, defaults to the detected value.
+   * The operating system and CPU architecture are always the detected values.
+   *
    * @param installMethod optional {@link InstallMethod} override, defaults to the detected value.
    *
    * @return the {@link UpgradeResult}. Never rejects.
    */
-  upgrade(
-    os?: SupportedOs,
-    arch?: SupportedArch,
-    installMethod?: InstallMethod,
-  ): Promise<UpgradeResult>;
+  upgrade(installMethod?: InstallMethod): Promise<UpgradeResult>;
 
   /**
    * Returns the result of the version check that was started eagerly once this service's
-   * dependencies were set (or starts one now, with default/no-override detection, if none has
+   * dependencies were set (or starts one now, with no install method override, if none has
    * started yet).
    *
    * @return the {@link UpgradeCheckResult}. Never rejects.
