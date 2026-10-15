@@ -16,6 +16,7 @@ export type { default as SubCommandArgument } from "./src/argument/SubCommandArg
 export { MAXIMUM_ARGUMENT_ARRAY_SIZE } from "./src/argument/SubCommandArgument.ts";
 export type { default as GlobalCommandArgument } from "./src/argument/GlobalCommandArgument.ts";
 export type { default as Option } from "./src/argument/Option.ts";
+export type { default as ValidationContext } from "./src/argument/ValidationContext.ts";
 export type { default as Positional } from "./src/argument/Positional.ts";
 
 // Command API
