@@ -1,4 +1,5 @@
 import type { SingleValueType, Values, ValueType, ValueTypeName } from "../Value.ts";
+import type ValidationContext from "./ValidationContext.ts";
 
 /**
  * Interface to be implemented by all {@link Command} arguments.
@@ -48,7 +49,9 @@ export default interface Argument {
 
   /**
    * Optional custom validation function invoked after all built-in validation
-   * has passed. Receives the validated and type-converted value.
+   * has passed. Receives the validated and type-converted value and a {@link ValidationContext}
+   * giving access to all other provided values of the command. A validator that only needs the
+   * value may declare just the first parameter.
    *
    * Return `undefined` if the value is valid, or a string describing the
    * validation error. The error string is associated with
@@ -80,5 +83,8 @@ export default interface Argument {
    * }
    * ```
    */
-  readonly validate?: (value: ValueType | Values | Array<Values>) => string | undefined;
+  readonly validate?: (
+    value: ValueType | Values | Array<Values>,
+    context: ValidationContext,
+  ) => string | undefined;
 }

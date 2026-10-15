@@ -10,6 +10,15 @@ export default interface Context {
   readonly cliConfig: CLIConfig;
 
   /**
+   * Whether each of the standard streams of the running process is attached to a TTY.
+   */
+  readonly isTty: {
+    readonly stdin: boolean;
+    readonly stdout: boolean;
+    readonly stderr: boolean;
+  };
+
+  /**
    * Return the service identified by the specified ID.
    *
    * @param id the ID of the service to retrieve.
