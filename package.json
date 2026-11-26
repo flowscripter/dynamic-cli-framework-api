@@ -43,11 +43,11 @@
     "prepare": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@flowscripter/dynamic-plugin-framework": "2.3.7",
+    "@flowscripter/dynamic-plugin-framework": "2.3.8",
     "@types/bun": "^1.4.5",
     "highlight.js": "^11.12.0",
-    "oxfmt": "0.79.0",
-    "oxlint": "1.94.0",
+    "oxfmt": "0.80.0",
+    "oxlint": "1.95.0",
     "prettier": "^3.10.1"
   },
   "peerDependencies": {
